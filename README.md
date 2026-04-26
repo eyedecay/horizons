@@ -37,3 +37,5 @@ Dropout Mask
 Multi-Head Attention
 - Each head has different weights, so they will learn different features
 - Each head produces its own context vectors which are concatenated then applied a linear layer (out_proj) to mix them
+
+Part 3: Architecture
