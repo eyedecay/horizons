@@ -49,3 +49,5 @@ nn.Sequential is a container that allows to build layers in neural nets
 In a Linear layer, the input activations are used to learn weights using y = xW+b. The First Linear Layer expands the feature size, then GELU applies smooth filtering, then Second Layer compresses it and "summarizes" what is learned into the right dimensions. 
 
 - Shortcut Connections: input is added directly to output to preserve original information and make gradients flow easier. 
+
+Created the Transformer block and the GPT Model that includes the Transformer Block with everything combined. The Transformer is using MultiHeadAttention from model.py and builds TransformerBlock with LayerNorm, Attn, Dropout + shortcut. The Full Model stacks 12 Transformer vlocks, adding token and positional embeddings, outputting logits
