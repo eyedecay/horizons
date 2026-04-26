@@ -39,3 +39,13 @@ Multi-Head Attention
 - Each head produces its own context vectors which are concatenated then applied a linear layer (out_proj) to mix them
 
 Part 3: Architecture
+
+- Layer Normalization: used to spped up training and stabilize by normalizing activations. For an input, layer computes mean and variance such that mean = 0 and variance = 1. 
+    - Scale and Shift Weights in Layer Normalization are used to adjust the normalized output
+- GELU: a non-linear activation function that sits in between linear layers. A FeedForward Module is coded into the transformer block that contains Linear Layer, GELU, and Linear Layer. 
+- Activation functions add non-linearity to neural networks to learn complex patterns. 
+
+nn.Sequential is a container that allows to build layers in neural nets
+In a Linear layer, the input activations are used to learn weights using y = xW+b. The First Linear Layer expands the feature size, then GELU applies smooth filtering, then Second Layer compresses it and "summarizes" what is learned into the right dimensions. 
+
+- Shortcut Connections: input is added directly to output to preserve original information and make gradients flow easier. 
