@@ -300,6 +300,13 @@ def train_model_simple(model, train_loader, val_loader, optimizer, device, num_e
 
         generate_and_print_sample(model, tokenizer, device, start_context)
     
+    # Checkpoint for saving weights
+    torch.save({
+        "model_state_dict": model.state_dict(),
+        "optimizer_state_dict": optimizer.state_dict(),
+        },
+        "model_and_optimizer.pth"
+    )
     return train_losses, val_losses, track_tokens_seen 
 
 def generate_and_print_sample(model, tokenizer, device, start_context):
@@ -378,4 +385,6 @@ def text_to_token_ids(text, tokenizer):
 def token_ids_to_text(token_ids, tokenizer):
     flat = token_ids.squeeze(0)
     return tokenizer.decode(flat.tolist())
+
+
 
