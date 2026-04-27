@@ -72,3 +72,6 @@ Actual Training:
 - Check for training and validation set losses
 - At the end, generate sample test
 - Do for # of Epochs
+
+Other Stuff for Training
+- Sampling Procedures 
