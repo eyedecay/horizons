@@ -213,7 +213,7 @@ def generate_text_simple(model, idx, max_new_tokens, context_size):
         probabilities = torch.softmax(logits, dim = -1)
 
         #largest value in the tensor is the most probable output
-        idx_next = torch.argmax(probabilities, dim = -1, keepdim = True)
+        idx_next = torch.argmax(logits, dim = -1, keepdim = True)
 
         idx = torch.cat((idx, idx_next), dim = 1)
     

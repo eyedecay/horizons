@@ -75,3 +75,6 @@ Actual Training:
 
 Other Stuff for Training
 - Sampling Procedures 
+Temperature Scaling: Instead of using direct sampling from the distribution, you first scale them, making large values even larger. Therefore, model becomes more "confident" 
+Sampling allows the outputs to be more varied. A argmax just always picks the highest which is boring. 
+Top-k Sampling: Using torch.topk(), it is a way to control randomness by only picking the top-k most likely tokens before sampling. Thatway it still varies but still makes sense. 
