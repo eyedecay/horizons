@@ -3,6 +3,8 @@ Learning How LLMs Work
 Part 1: Input data
 Turn textx into tokens into token ids into token embeddings + positional embeddings = input embeddings
 
+Tokens are turned into ids using a "known" vocabulary. In this case, using tiktoken. 
+
 - Roughly how text preprocessing works (the manual regex way and using tiktoken)
 - unknown token handling
 - created a dataset used with DataLoader and created a dataloader
@@ -51,3 +53,22 @@ In a Linear layer, the input activations are used to learn weights using y = xW+
 - Shortcut Connections: input is added directly to output to preserve original information and make gradients flow easier. 
 
 Created the Transformer block and the GPT Model that includes the Transformer Block with everything combined. The Transformer is using MultiHeadAttention from model.py and builds TransformerBlock with LayerNorm, Attn, Dropout + shortcut. The Full Model stacks 12 Transformer vlocks, adding token and positional embeddings, outputting logits
+
+Part 4: Training
+
+Loss
+- Cross Entropy loss using torch.nn.functional.cross_entropy
+- Perplexity (A more interpretable version that is e^loss)
+
+
+Used very small training set(literally like one wiki article)
+Seperate into training and validation set. Batch Sizing for training
+
+Actual Training:
+- In each epoch, iterate over batches
+- Reset loss gradients from previous batch iterations, then calculate loss on current batch
+- Backward pass to calculate loss gradients (using built in loss.backward())
+- Update model weights (using built in optimizer.step())
+- Check for training and validation set losses
+- At the end, generate sample test
+- Do for # of Epochs
