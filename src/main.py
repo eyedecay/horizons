@@ -1,5 +1,6 @@
 import torch
 import tiktoken
+import argparse
 from src.model import (GPTModel, create_dataloader_v1, train_model_simple, generate, text_to_token_ids, token_ids_to_text, GPTDatasetV1)
 
 
@@ -15,14 +16,54 @@ GPT_CONFIG_124M = {
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-model = GPTModel(GPT_CONFIG_124M)
-model.to(device)
+def load_model(device):
 
-checkpoint = torch.load("model_and_optimizer.pth", map_location = device)
-model.load_state_dict(checkpoint["model_state_dict"])
-optimizer = torch.optim.AdamW(model.parameters())
-optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
-model.eval()
+    model = GPTModel(GPT_CONFIG_124M).to(device)
+    model.to(device)
 
-tokenizer = tiktoken.get_encoding("gpt2")
+    checkpoint = torch.load("model_and_optimizer.pth", map_location = device)
+    model.load_state_dict(checkpoint["model_state_dict"])
+
+
+    model.eval()
+    return model
+
+
+def run_model(device):
+    model = load_model(device)
+    tokenizer = tiktoken.get_encoding("gpt2")
+
+    prompt = input("\n Enter prompt: ")
+    while prompt != "q":
+        token_ids = text_to_token_ids(prompt, tokenizer).to(device)
+
+        output = generate(
+            model = model,
+            idx = token_ids,
+            max_new_tokens = 100,
+            context_size = GPT_CONFIG_124M["context_length"]
+        )
+        print(token_ids_to_text(output, tokenizer))
+        prompt = input("\n Enter prompt: ")
+
+    print("Ended")
+    
+
+def main():
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    
+    parser = argparse.ArgumentParser(description="Train or Run")
+    parser.add_argument("--mode", choices = ["train", "run"], required = True, help = "Train or run")
+    args = parser.parse_args()
+
+    if args.mode == "train":
+        pass
+        #train(device)
+    elif args.mode == "run":
+        run_model(device)
+
+
+if __name__ == "__main__":
+    main()
+    
 
