@@ -1,8 +1,16 @@
+"""
+Main Interface for development right now. 
+
+To use, python -m src.main --mode run
+"""
+
 import torch
 import tiktoken
 import argparse
-from src.model import (GPTModel, create_dataloader_v1, train_model_simple, generate, text_to_token_ids, token_ids_to_text, GPTDatasetV1)
-
+from src.model import GPTModel
+from src.data import GPTDatasetV1, create_dataloader_v1
+from src.train import train_model_simple
+from src.generation import generate, text_to_token_ids, token_ids_to_text
 
 GPT_CONFIG_124M = {
     "vocab_size": 50257, 
