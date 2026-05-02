@@ -73,6 +73,9 @@ def train_model_simple(model, train_loader, val_loader, optimizer, scheduler, de
             optimizer.zero_grad()
             loss = calc_loss_batch(input_batch, target_batch, model, device)
             loss.backward()
+            # Gradient Clipping
+            torch.nn.utils.clip_grad_norm_(model.paramters(), max_norm = 1.0)
+            # Optimizer + Learning Rate Scheduler
             optimizer.step()
             scheduler.step()
             tokens_seen += input_batch.numel()

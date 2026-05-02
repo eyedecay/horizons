@@ -68,7 +68,9 @@ Actual Training:
 - In each epoch, iterate over batches
 - Reset loss gradients from previous batch iterations, then calculate loss on current batch
 - Backward pass to calculate loss gradients (using built in loss.backward())
-- Update model weights (using built in optimizer.step())
+- Before updating model weights, use gradient clipping
+Gradient Clipping: ensures the magnitude stays within a certain threshold to avoid overstepping
+- Update model weights (using built in optimizer.step()), Additionally, use a learning rate schedular (Usually starts with high learning rate, then slowly converges by lowering the learning rate)
 - Check for training and validation set losses
 - At the end, generate sample test
 - Do for # of Epochs
