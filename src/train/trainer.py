@@ -42,7 +42,7 @@ def calc_loss_loader(data_loader, model, device, num_batches = None):
 
 
 
-def train_model_simple(model, train_loader, val_loader, optimizer, device, num_epochs, eval_freq, eval_iter, start_context, tokenizer):
+def train_model_simple(model, train_loader, val_loader, optimizer, scheduler, device, num_epochs, eval_freq, eval_iter, start_context, tokenizer):
     """
     Trains the Model
     Args:
@@ -50,6 +50,7 @@ def train_model_simple(model, train_loader, val_loader, optimizer, device, num_e
         train_loader: (torch.utilis.data.DataLoader)
         val_loader: (torch.utilis.data.DataLoader)
         optimizer: (torch Optimizer)
+        scheduler: (torch Scheduler)
         device: (torch.device)
         num_epochs: (int)
         eval_freq: (int)
@@ -73,6 +74,7 @@ def train_model_simple(model, train_loader, val_loader, optimizer, device, num_e
             loss = calc_loss_batch(input_batch, target_batch, model, device)
             loss.backward()
             optimizer.step()
+            scheduler.step()
             tokens_seen += input_batch.numel()
             global_step += 1
 
@@ -89,6 +91,7 @@ def train_model_simple(model, train_loader, val_loader, optimizer, device, num_e
     torch.save({
         "model_state_dict": model.state_dict(),
         "optimizer_state_dict": optimizer.state_dict(),
+        "scheduler_state_dict": scheduler.state_dict(),
         },
         "model_and_optimizer.pth"
     )
