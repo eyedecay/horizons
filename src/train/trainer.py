@@ -74,7 +74,7 @@ def train_model_simple(model, train_loader, val_loader, optimizer, scheduler, de
             loss = calc_loss_batch(input_batch, target_batch, model, device)
             loss.backward()
             # Gradient Clipping
-            torch.nn.utils.clip_grad_norm_(model.paramters(), max_norm = 1.0)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm = 1.0)
             # Optimizer + Learning Rate Scheduler
             optimizer.step()
             scheduler.step()
@@ -96,7 +96,7 @@ def train_model_simple(model, train_loader, val_loader, optimizer, scheduler, de
         "optimizer_state_dict": optimizer.state_dict(),
         "scheduler_state_dict": scheduler.state_dict(),
         },
-        "model_and_optimizer.pth"
+        "test_model1.pth"
     )
     return train_losses, val_losses, track_tokens_seen 
 
