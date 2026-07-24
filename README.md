@@ -36,11 +36,6 @@ Open a new terminal
 cd UI && npm run electron
 
 ```
-
-### AI Usage
-- Was used to explain Pytorch-specific things and to build application at the end cause I ran into too many issues with pyinstaller and things like that.
-
-[#horizons](horizons.hackclub.com)
-
+### Bugs
 - Model might take a bit to download weights/load backend server. If you wait like a minute then try prompting it it should work. 
 - It's probably going to suck cause I didn't have enough credits to pretrain for too long (was renting GPU) but it should give answers that semantically are close to input.
